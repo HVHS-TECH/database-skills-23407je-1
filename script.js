@@ -25,3 +25,17 @@ function helloWorld(){
     }
   )
 }
+function users(){
+firebase.database().ref('Users/Coby').set(
+    {
+      age: 16,
+      fingers: 10,
+      coolpoints: 100000,
+    }
+  )
+}
+function simpleread() {
+  console.log("reading the message");
+  firebase.database().ref('/message').once('value', displayMessage);
+  console.log("leaving simpleread");
+}
