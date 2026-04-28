@@ -17,6 +17,7 @@ const HTML_OUTPUT = document.getElementById("databaseOutput");
 // The ref('/') part tells the operation to write to the base level of the database "/"
 // This means it replaces the whole database with message:Hello World
 /**************************************************************/
+let score = 0;
 function helloWorld(){
   console.log("Running helloWorld()")
   firebase.database().ref('/').set(
@@ -36,6 +37,51 @@ firebase.database().ref('Users/Coby').set(
 }
 function simpleread() {
   console.log("reading the message");
-  firebase.database().ref('/message').once('value', displayMessage);
-  console.log("leaving simpleread");
+  firebase.database().ref('/message').on('value', displayMessage, fb_readError);
+  console.log("leaving simpleRead");
+}
+
+function displayMessage(snapshot) {
+  HTML_OUTPUT.innerHTML = snapshot.val();
+}
+function fb_readError(error) {
+console.log("there was an error reading the message");
+console.error(error);
+}
+
+ leaderboardTable = {
+Hardcore:{
+Users: {
+  Coby: 900,
+  Josh: score,
+  Lukas: 830,
+  MrB: 400
+}
+},
+Normal:{
+ Users: {
+  Coby: 1260,
+  Josh: 1340,
+  Lukas: 1280,
+  MrB: 700
+}
+},
+}
+
+function leaderboards() {
+  firebase.database().ref('/').set(leaderboardTable)
+}
+
+function hardcoreclicker() {
+    score = score + 1;
+  firebase.database().ref('Hardcore/Users/Josh').set(score)
+}
+
+function fb_readLeaderboard() {
+  console.log("Reading highscore");
+  firebase.database().ref('Hardcore/Users/Josh').on('value', displayLeaderboard, fb_readError)
+  
+}
+function displayLeaderboard(snapshot) {
+  HTML_OUTPUT.innerHTML = snapshot.val();
 }
