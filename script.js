@@ -49,9 +49,9 @@ console.log("there was an error reading the message");
 console.error(error);
 }
 
- leaderboardTable = {
+leaderboardTable = {
 Hardcore:{
-Users: {
+ Users: {
   Coby: 900,
   Josh: score,
   Lukas: 830,
@@ -78,10 +78,11 @@ function hardcoreclicker() {
 }
 
 function fb_readLeaderboard() {
-  console.log("Reading highscore");
-  firebase.database().ref('Hardcore/Users/Josh').on('value', displayLeaderboard, fb_readError)
+  console.log("Reading leaderboard");
+  firebase.database().ref('Hardcore/Users').on('value', displayLeaderboard, fb_readError)
   
 }
 function displayLeaderboard(snapshot) {
+  console.log(snapshot.val());
   HTML_OUTPUT.innerHTML = snapshot.val();
 }
