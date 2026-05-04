@@ -80,9 +80,13 @@ function hardcoreclicker() {
 function fb_readLeaderboard() {
   console.log("Reading leaderboard");
   firebase.database().ref('Hardcore/Users').on('value', displayLeaderboard, fb_readError)
-  
 }
 function displayLeaderboard(snapshot) {
-  console.log(snapshot.val());
-  HTML_OUTPUT.innerHTML = snapshot.val();
+  let data = snapshot.val();
+  console.log(data);
+  let text = "";
+  for (let [usernames, score] of Object.entries(data)) {
+    text += usernames + ": " + score + "<br>";
+  }
+  HTML_OUTPUT.innerHTML = text;
 }
