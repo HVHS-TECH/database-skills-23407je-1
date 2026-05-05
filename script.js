@@ -74,19 +74,23 @@ function leaderboards() {
 
 function hardcoreclicker() {
     score = score + 1;
-  firebase.database().ref('Hardcore/Users/Josh').set(score)
 }
-
 function fb_readLeaderboard() {
   console.log("Reading leaderboard");
-  firebase.database().ref('Hardcore/Users').on('value', displayLeaderboard, fb_readError)
+  HTML_OUTPUT.innerHTML = "";
+  firebase.database().ref('Hardcore/Users').orderByValue().on('value', displayLeaderboard, fb_readError)
 }
+
 function displayLeaderboard(snapshot) {
-  let data = snapshot.val();
-  console.log(data);
+  snapshot.forEach(sortData)
+}
+function sortData(string){
+  let data = string.val();
+  console.log("the data is: " + data);
+  
   let text = "";
-  for (let [usernames, score] of Object.entries(data)) {
-    text += usernames + ": " + score + "<br>";
-  }
-  HTML_OUTPUT.innerHTML = text;
+  for (let [usernames, score] of Object.keys(string)) {
+  text += usernames
+}
+    HTML_OUTPUT.innerHTML += text + ": " + data + "<br>";
 }
