@@ -17,7 +17,6 @@ const HTML_OUTPUT = document.getElementById("databaseOutput");
 // The ref('/') part tells the operation to write to the base level of the database "/"
 // This means it replaces the whole database with message:Hello World
 /**************************************************************/
-let score = 0;
 function helloWorld(){
   console.log("Running helloWorld()")
   firebase.database().ref('/').set(
@@ -73,7 +72,10 @@ function leaderboards() {
 }
 
 function hardcoreclicker() {
-    score = score + 1;
+  firebase.database().ref('Hardcore/Users/Josh').set('value', clickerdata)
+}
+function clickerdata(Joshdata) {
+Joshdata.forEach(sortclicker)
 }
 function fb_readLeaderboard() {
   console.log("Reading leaderboard");
@@ -86,10 +88,10 @@ function displayLeaderboard(snapshot) {
 }
 function sortData(string){
   let data = string.val();
+  console.log(string);
   console.log("the data is: " + data);
-  
   let text = "";
-  for (let [usernames, score] of Object.keys(string)) {
+  for (let [usernames] of string.key) {
   text += usernames
 }
     HTML_OUTPUT.innerHTML += text + ": " + data + "<br>";
