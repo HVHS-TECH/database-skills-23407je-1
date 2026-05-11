@@ -29,7 +29,7 @@ function goodbyeWorld(){
   console.log("Running goodbyeWorld()")
   firebase.database().ref('/').set(
     {
-      message: 'Goodbye World!'
+      message: 'Goodbye World!!'
     }
   )
 }
