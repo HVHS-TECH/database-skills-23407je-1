@@ -19,6 +19,7 @@ const HTML_OUTPUT = document.getElementById("databaseOutput");
 /**************************************************************/
 function helloWorld(){
   console.log("Running helloWorld()")
+  HTML_OUTPUT.innerHTML = "";
   firebase.database().ref('/').set(
     {
       message: 'Hello World!'
@@ -27,9 +28,10 @@ function helloWorld(){
 }
 function goodbyeWorld(){
   console.log("Running goodbyeWorld()")
+  HTML_OUTPUT.innerHTML = "";
   firebase.database().ref('/').set(
     {
-      message: 'Goodbye World!!'
+      message: 'Goodbye World!'
     }
   )
 }
@@ -50,6 +52,7 @@ function simpleread() {
 }
 
 function displayMessage(snapshot) {
+  firebase.database().ref('/message').off();
   if (snapshot.val() == null) {
   HTML_OUTPUT.innerHTML = "Data is null";
   } else {
