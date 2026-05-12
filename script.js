@@ -7,7 +7,7 @@
  **************************************************************/
 
 const HTML_OUTPUT = document.getElementById("databaseOutput");
-
+var AuthenticatorListener
 /**************************************************************/
 // helloWorld()
 // Demonstrate a minimal write to firebase
@@ -126,6 +126,7 @@ function fb_handleLogin(_User) {
     GLOBAL_user = _User;
   } else {
     console.log("User has not logged in")
+     HTML_OUTPUT.innerHTML = "the user has not logged in";
     loginWithGoogle();
   }
 }
@@ -136,5 +137,10 @@ function loginWithGoogle() {
   firebase.auth().signInWithPopup(provider).then((result) => {
     GLOBAL_User = result.user;
     console.log("User has logged in")
+    console.log(result.user);
   });
+}
+function fb_logout(){
+AuthenticatorListener();
+firebase.auth().signOut();
 }
